@@ -11,7 +11,9 @@ let interval = null;
 let isWorkCycle = true;
 let soundChild;
 let trayIconSuffix = "";
-const TRAY_ICON_PATH = `${__dirname}/images/tray_icon`
+const RES_PATH = `${process.resourcesPath}/res`
+const TRAY_ICON_PATH = `${RES_PATH}/images/tray_icon`
+const SOUNDS_PATH = `${RES_PATH}/sounds`
 
 app.whenReady().then(() => {
     tray = new Tray(getTrayIcon());
@@ -101,9 +103,9 @@ function updateTrayIcon() {
 
 function playCycleEndSound() {
     const soundFile = isWorkCycle
-        ? 'sounds/Radar.m4r' // Sound for end of work cycle
-        : 'sounds/Time-Passing.m4r'; // Sound for end of break cycle
-    soundChild = exec(`afplay ${soundFile}`, (err) => {
+        ? 'Radar.m4r' // Sound for end of work cycle
+        : 'Time-Passing.m4r'; // Sound for end of break cycle
+    soundChild = exec(`afplay ${SOUNDS_PATH}/${soundFile}`, (err) => {
         if (err) console.error(new Date().toLocaleString(), 'Error playing sound:', err);
     });
 }

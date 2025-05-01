@@ -9,6 +9,12 @@
     "build": {
         "productName": "Pomodoro",
         "appId": "com.txl",
+        "extraResources": [
+            {
+                "from": "res/",
+                "to": "res/"
+            }
+        ],
         "mac": {
             "target": "dmg"
         },
