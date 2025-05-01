@@ -1,4 +1,4 @@
-const { app, Menu, Tray, globalShortcut, nativeTheme, nativeImage, systemPreferences } = require('electron');
+const { app, Menu, Tray, globalShortcut, nativeTheme, nativeImage, Notification } = require('electron');
 const { exec } = require('child_process');
 const path = require('path');
 
@@ -14,8 +14,18 @@ let trayIconSuffix = "";
 const RES_PATH = `${process.resourcesPath}/res`
 const TRAY_ICON_PATH = `${RES_PATH}/images/tray_icon`
 const SOUNDS_PATH = `${RES_PATH}/sounds`
+let workNoti, restNoti;
 
 app.whenReady().then(() => {
+     workNoti = new Notification({
+        title: 'Pomodoro',
+        body: 'Back to work!'
+    });
+
+     restNoti = new Notification({
+        title: 'Pomodoro',
+        body: 'Take a rest!',
+    });
     tray = new Tray(getTrayIcon());
     updateTray();
 
@@ -112,6 +122,11 @@ function playCycleEndSound() {
 
 function switchCycle() {
     isWorkCycle = !isWorkCycle;
+    if (isWorkCycle) {
+        workNoti.show()
+    } else {
+        restNoti.show()
+    }
     timeLeft = isWorkCycle ? WORK * 60 : BREAK * 60; // Switch between 25 min work and 5 min break
     updateTray();
 }
