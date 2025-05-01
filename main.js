@@ -19,12 +19,14 @@ let workNoti, restNoti;
 app.whenReady().then(() => {
      workNoti = new Notification({
         title: 'Pomodoro',
-        body: 'Back to work!'
+        body: 'Back to work!',
+        silent: true
     });
 
      restNoti = new Notification({
         title: 'Pomodoro',
         body: 'Take a rest!',
+        silent: true
     });
     tray = new Tray(getTrayIcon());
     updateTray();
